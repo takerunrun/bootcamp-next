@@ -1,14 +1,22 @@
 import type { NextPage, GetStaticProps } from 'next'
 
-export const getStaticProps: GetStaticProps = () => {
-  return {  props: {} }
+type Props = {
+  now: string
+}
+
+export const getStaticProps: GetStaticProps<Props> = () => {
+  const now = new Date().toISOString()
+  return {  props: {now: now} }
 }
 
 
-const Home: NextPage = () => {
+const Page: NextPage<Props> = (props) => {
   return (
-    <div>Hello</div>
+    <div>
+      <h1>Hello</h1>
+      <p>{props.now}</p>
+    </div>
   )
 }
 
-export default Home
+export default Page
