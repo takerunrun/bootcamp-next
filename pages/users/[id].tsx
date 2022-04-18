@@ -5,6 +5,7 @@ type Data = {
 }
 type Props = {
   now: string
+  id: string
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -21,13 +22,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const now = new Date().toISOString()
-  return {  props: { now } }
+  if (!ctx.params || typeof ctx.params.id != 'string') throw new Error('Invalid params')
+  const id = ctx.params?.id
+  return {  props: { now, id } }
 }
 
 
 const Page: NextPage<Props> = (props) => {
   return (
     <div>
+      <h1>{props.id}</h1>
       <p>{props.now}</p>
     </div>
   )
