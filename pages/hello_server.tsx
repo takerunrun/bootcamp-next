@@ -1,25 +1,19 @@
 import type { NextPage, GetServerSideProps } from 'next'
 
-type Data = {
-  title: string
-}
 type Props = {
   now: string
-  data: Data
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const data: Data = await fetch("https://hacker-news.firebaseio.com/v0/item/31000386.json")
-    .then((res) => res.json())
+export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const now = new Date().toISOString()
-  return {  props: { now, data } }
+  console.log(ctx.req.cookies)
+  return {  props: { now } }
 }
 
 
 const Page: NextPage<Props> = (props) => {
   return (
     <div>
-      <h1>{props.data.title}</h1>
       <p>{props.now}</p>
     </div>
   )
