@@ -1,4 +1,5 @@
 import type { NextPage, GetServerSideProps } from 'next'
+import { setCookie } from 'nookies'
 
 type Props = {
   now: string
@@ -6,7 +7,10 @@ type Props = {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const now = new Date().toISOString()
-  console.log(ctx.req.cookies)
+  setCookie(ctx, 'fromClient', 'value', {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  })
   return {  props: { now } }
 }
 
