@@ -22,9 +22,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const now = new Date().toISOString()
-  if (!ctx.params || typeof ctx.params.id != 'string') throw new Error('Invalid params')
+  if (!ctx.params || typeof ctx.params.id != 'string') {
+    throw new Error('Invalid params')
+  }
   const id = ctx.params?.id
-  return {  props: { now, id } }
+  return {  props: { now, id }, revalidate: 1 }
 }
 
 
