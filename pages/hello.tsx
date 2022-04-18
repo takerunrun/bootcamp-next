@@ -12,7 +12,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const data: Data = await fetch("https://hacker-news.firebaseio.com/v0/item/31000386.json")
     .then((res) => res.json())
   const now = new Date().toISOString()
-  return {  props: { now, data } }
+  return {  props: { now, data }, revalidate: 10 }
 }
 
 
